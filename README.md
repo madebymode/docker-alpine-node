@@ -68,8 +68,7 @@ services:
       # these are CRITICAL for linux hosts
       - HOST_USER_UID=${HOST_USER_UID:-1000}
       - HOST_USER_GID=${HOST_USER_GID:-1000}
-    user: docker
-    command: npm run build
+    command: yarn && yarn build
     
   frontend-build-with-testing:
     image: mxmd/node:18-full
@@ -85,7 +84,7 @@ services:
     user: docker
     shm_size: 1gb
     command: |
-      sh -c "npm run build && npm run test:e2e"
+      sh -c "yarn && yarn build && yarn test:e2e"
 ```
 
 **Note**: The `shm_size: 1gb` is recommended for `-full` images when running Puppeteer/Chrome-based tests during the build process.

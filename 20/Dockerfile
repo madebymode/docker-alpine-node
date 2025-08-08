@@ -1,5 +1,10 @@
-FROM node:20-alpine
+ARG NODE_VERSION=20
+FROM node:${NODE_VERSION}-alpine
 MAINTAINER madebymode
+
+# Build arguments
+ARG INSTALL_CHROME=false
+ARG GULP_VERSION=""
 
 # Install system dependencies and build tools for imagemin
 RUN apk add --no-cache \
@@ -21,10 +26,34 @@ RUN apk add --no-cache \
     libjpeg-turbo-dev \
     giflib-dev \
     tiff-dev \
-    zlib-dev
+    zlib-dev \
+    openssh-client
+
+# Install Chrome dependencies for Puppeteer (only if INSTALL_CHROME=true)
+RUN if [ "$INSTALL_CHROME" = "true" ]; then \
+        apk add --no-cache \
+            chromium \
+            nss \
+            freetype \
+            freetype-dev \
+            harfbuzz \
+            ca-certificates \
+            ttf-freefont \
+            ttf-dejavu \
+            fontconfig; \
+    fi
+
+# Tell Puppeteer to use installed Chromium (only if Chrome is installed)
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # Install yarn globally (force overwrite if exists)
 RUN npm install -g yarn --force
+
+# Install gulp globally if GULP_VERSION is specified
+RUN if [ -n "$GULP_VERSION" ]; then \
+        npm install -g gulp@^${GULP_VERSION}; \
+    fi
 
 # Give node user sudo access
 RUN echo 'node ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers

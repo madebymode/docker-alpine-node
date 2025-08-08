@@ -49,7 +49,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # 6) Determine matrix
-ALL_TYPES=(regular full)
+ALL_TYPES=(regular full gulp4 gulp5 gulp4-full gulp5-full)
 ALL_VERSIONS=(14 16 18 20 22)
 
 if   $BUILD_ALL; then
@@ -73,11 +73,11 @@ fi
 found=0
 for v in "${VERSIONS[@]}"; do
   for t in "${TYPES[@]}"; do
-    if [[ "$t" == "regular" ]]; then
-      [[ -f "$v/Dockerfile" ]] && found=1
-    elif [[ "$t" == "full" ]]; then
-      [[ -f "$v-full/Dockerfile" ]] && found=1
-    fi
+    case "$t" in
+      "regular"|"full"|"gulp4"|"gulp5"|"gulp4-full"|"gulp5-full")
+        [[ -f "$v/Dockerfile" ]] && found=1
+        ;;
+    esac
   done
 done
 if (( found == 0 )); then
@@ -101,13 +101,40 @@ was_recent() {
 # 9) Build loop
 for v in "${VERSIONS[@]}"; do
   for t in "${TYPES[@]}"; do
-    if [[ "$t" == "regular" ]]; then
-      DIR="$v"
-      TAG="mxmd/node:${v}"
-    elif [[ "$t" == "full" ]]; then
-      DIR="$v-full"
-      TAG="mxmd/node${v}-full"
-    fi
+    # Set build args and tags based on type
+    BUILD_ARGS=""
+    case "$t" in
+      "regular")
+        DIR="$v"
+        TAG="mxmd/node:v${v}"
+        BUILD_ARGS="--build-arg NODE_VERSION=${v}"
+        ;;
+      "full")
+        DIR="$v"
+        TAG="mxmd/node:v${v}-full"
+        BUILD_ARGS="--build-arg NODE_VERSION=${v} --build-arg INSTALL_CHROME=true"
+        ;;
+      "gulp4")
+        DIR="$v"
+        TAG="mxmd/node:v${v}-gulp4"
+        BUILD_ARGS="--build-arg NODE_VERSION=${v} --build-arg GULP_VERSION=4.0.0"
+        ;;
+      "gulp5")
+        DIR="$v"
+        TAG="mxmd/node:v${v}-gulp5"
+        BUILD_ARGS="--build-arg NODE_VERSION=${v} --build-arg GULP_VERSION=5.0.0"
+        ;;
+      "gulp4-full")
+        DIR="$v"
+        TAG="mxmd/node:v${v}-gulp4-full"
+        BUILD_ARGS="--build-arg NODE_VERSION=${v} --build-arg GULP_VERSION=4.0.0 --build-arg INSTALL_CHROME=true"
+        ;;
+      "gulp5-full")
+        DIR="$v"
+        TAG="mxmd/node:v${v}-gulp5-full"
+        BUILD_ARGS="--build-arg NODE_VERSION=${v} --build-arg GULP_VERSION=5.0.0 --build-arg INSTALL_CHROME=true"
+        ;;
+    esac
     
     [[ ! -f "$DIR/Dockerfile" ]] && continue
 
@@ -117,7 +144,7 @@ for v in "${VERSIONS[@]}"; do
       continue
     fi
 
-    echo "Building $TAG for $PLATFORMS" >&2
+    echo "Building $TAG for $PLATFORMS with args: $BUILD_ARGS" >&2
     if [[ "$PLATFORMS" == *","* ]]; then
       echo "Multi-platform build detected, using --push instead of --load"
       docker buildx build \
@@ -125,6 +152,7 @@ for v in "${VERSIONS[@]}"; do
         --platform "$PLATFORMS" \
         --tag "$TAG" \
         --file "$DIR/Dockerfile" \
+        $BUILD_ARGS \
         .
     else
       docker buildx build \
@@ -132,6 +160,7 @@ for v in "${VERSIONS[@]}"; do
         --platform "$PLATFORMS" \
         --tag "$TAG" \
         --file "$DIR/Dockerfile" \
+        $BUILD_ARGS \
         .
     fi
   done

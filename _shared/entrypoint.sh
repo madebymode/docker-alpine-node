@@ -1,5 +1,26 @@
 #!/bin/sh
 
+# Setup SSH configuration if .ssh-copy directory exists
+if [ -d "/home/docker/.ssh-copy" ]; then
+    echo "Setting up SSH configuration..."
+    cp -R /home/docker/.ssh-copy /home/docker/.ssh
+    chmod 700 /home/docker/.ssh
+    if [ -f "/home/docker/.ssh/id_rsa" ]; then
+        chmod 600 /home/docker/.ssh/id_rsa
+    fi
+    if [ -f "/home/docker/.ssh/id_ed25519" ]; then
+        chmod 600 /home/docker/.ssh/id_ed25519
+    fi
+    if [ -f "/home/docker/.ssh/config" ]; then
+        chmod 600 /home/docker/.ssh/config
+    fi
+    chown -R node:node /home/docker/.ssh
+    
+    # Test SSH connectivity to GitHub
+    echo "Testing SSH connectivity to GitHub..."
+    su-exec node ssh -o StrictHostKeyChecking=no -T git@github.com || echo "SSH test completed"
+fi
+
 # Modify node user and group IDs to match the host user and group IDs if the arguments are passed and not macOS
 if [ -n "$HOST_USER_UID" ] && [ -n "$HOST_USER_GID" ] && [ "$(uname)" != "Darwin" ] && [ "$HOST_USER_GID" != "20" ]; then
     # Use deluser/adduser instead of usermod/groupmod as they're more reliable in Alpine
