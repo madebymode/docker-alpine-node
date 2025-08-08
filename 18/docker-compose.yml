@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  node18:
+    build:
+      context: .
+      args:
+        HOST_USER_UID: ${HOST_USER_UID:-1000}
+        HOST_USER_GID: ${HOST_USER_GID:-1000}
+    image: mxmd/node:18
+    container_name: alpine-node-18
+    working_dir: /home/docker
+    volumes:
+      - ./:/app
+    ports:
+      - "3018:3000"
+    user: docker
+    stdin_open: true
+    tty: true

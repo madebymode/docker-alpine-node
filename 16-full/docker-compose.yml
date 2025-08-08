@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  node16-full:
+    build:
+      context: .
+      args:
+        HOST_USER_UID: ${HOST_USER_UID:-1000}
+        HOST_USER_GID: ${HOST_USER_GID:-1000}
+    image: mxmd/node:16-full
+    container_name: alpine-node-16-full
+    working_dir: /home/docker
+    volumes:
+      - ./:/app
+    ports:
+      - "3116:3000"
+    user: docker
+    stdin_open: true
+    tty: true
+    shm_size: 1gb

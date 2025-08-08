@@ -1,0 +1,138 @@
+name: Create Releases and Build Docker images
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+jobs:
+  create-release-and-build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version:
+          - '14'
+          - '16'
+          - '18'
+          - '20'
+          - '22'
+        type:
+          - regular
+          - full
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup GitHub CLI
+        run: |
+          gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Set directory and tag names
+        run: |
+          if [[ "${{ matrix.type }}" == "regular" ]]; then
+            echo "DIR=${{ matrix.version }}" >> $GITHUB_ENV
+            echo "TAG_NAME=node-${{ matrix.version }}" >> $GITHUB_ENV
+            echo "DOCKER_TAG=mxmd/node:${{ matrix.version }}" >> $GITHUB_ENV
+          else
+            echo "DIR=${{ matrix.version }}-full" >> $GITHUB_ENV
+            echo "TAG_NAME=node${{ matrix.version }}-full" >> $GITHUB_ENV
+            echo "DOCKER_TAG=mxmd/node:${{ matrix.version }}-full" >> $GITHUB_ENV
+          fi
+
+      - name: Create Release
+        run: |
+          if [[ -f "${{ env.DIR }}/Dockerfile" ]]; then
+            DOCKER_HUB_LINK="https://hub.docker.com/r/mxmd/node/tags?page=1&name=${{ matrix.version }}"
+            RELEASE_TITLE="Node.js ${{ matrix.version }} (${{ matrix.type }}) release"
+            if [[ "${{ matrix.type }}" == "full" ]]; then
+              RELEASE_NOTES="Docker image for Node.js ${{ matrix.version }} with Chrome/Puppeteer support and imagemin dependencies. [View on Docker Hub]($DOCKER_HUB_LINK)"
+            else
+              RELEASE_NOTES="Docker image for Node.js ${{ matrix.version }} with imagemin dependencies. [View on Docker Hub]($DOCKER_HUB_LINK)"
+            fi
+            
+            if ! gh release view "${{ env.TAG_NAME }}" > /dev/null 2>&1; then
+              gh release create "${{ env.TAG_NAME }}" \
+                --title "$RELEASE_TITLE" \
+                --notes "$RELEASE_NOTES"
+              echo "RELEASE_CREATED=true" >> $GITHUB_ENV
+            fi
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          image: tonistiigi/binfmt:qemu-v8.1.5
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      # ── BUILD ───────────────────────────────────────────────────────────────
+
+      - name: Build Docker images (regular)
+        if: matrix.type == 'regular'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            mxmd/node:${{ matrix.version }}
+          file: ${{ matrix.version }}/Dockerfile
+
+      - name: Build Docker images (full)
+        if: matrix.type == 'full'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            mxmd/node:${{ matrix.version }}-full
+          file: ${{ matrix.version }}-full/Dockerfile
+
+      - name: Generate build timestamp
+        id: build-timestamp
+        run: echo "BUILD_TIMESTAMP=$(date +'%Y%m%d%H%M')" >> $GITHUB_ENV
+
+      # ── PUSH ────────────────────────────────────────────────────────────────
+
+      - name: Push Docker images (regular)
+        if: matrix.type == 'regular'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64,linux/arm64
+          provenance: true
+          sbom: true
+          attestations: type=sbom,generator=docker/scout
+          tags: |
+            mxmd/node:${{ matrix.version }}
+            mxmd/node:${{ matrix.version }}-${{ env.BUILD_TIMESTAMP }}
+          file: ${{ matrix.version }}/Dockerfile
+
+      - name: Push Docker images (full)
+        if: matrix.type == 'full'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64,linux/arm64
+          provenance: true
+          sbom: true
+          attestations: type=sbom,generator=docker/scout
+          tags: |
+            mxmd/node:${{ matrix.version }}-full
+            mxmd/node:${{ matrix.version }}-full-${{ env.BUILD_TIMESTAMP }}
+          file: ${{ matrix.version }}-full/Dockerfile
