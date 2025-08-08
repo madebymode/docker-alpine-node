@@ -3,17 +3,17 @@ version: '3.8'
 services:
   node14:
     build:
-      context: ..
-      dockerfile: 14/Dockerfile
+      context: .
+      args:
+        HOST_USER_UID: ${HOST_USER_UID:-1000}
+        HOST_USER_GID: ${HOST_USER_GID:-1000}
     image: mxmd/node:14
     container_name: alpine-node-14
-    working_dir: /app
-    environment:
-      - HOST_USER_UID=${HOST_USER_UID:-1000}
-      - HOST_USER_GID=${HOST_USER_GID:-1000}
+    working_dir: /home/node
     volumes:
       - ./:/app
     ports:
       - "3014:3000"
+    user: node
     stdin_open: true
-    tty: true
+    tty: false

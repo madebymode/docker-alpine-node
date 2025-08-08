@@ -7,7 +7,7 @@ Alpine Linux based Docker image with Node.js 20.x, yarn, and development tools.
 - Node.js 20.x
 - yarn package manager
 - Essential build tools (gcc, g++, make, python3)
-- Non-root docker user with sudo access
+- Non-root node user with sudo access
 - Multi-architecture support (AMD64/ARM64)
 
 ## Usage

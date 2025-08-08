@@ -9,11 +9,11 @@ services:
         HOST_USER_GID: ${HOST_USER_GID:-1000}
     image: mxmd/node:16
     container_name: alpine-node-16
-    working_dir: /home/docker
+    working_dir: /home/node
     volumes:
       - ./:/app
     ports:
       - "3016:3000"
-    user: docker
+    user: node
     stdin_open: true
-    tty: true
+    tty: false

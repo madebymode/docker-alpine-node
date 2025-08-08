@@ -1,4 +1,4 @@
-ARG NODE_VERSION=20
+ARG NODE_VERSION=14
 FROM node:${NODE_VERSION}-alpine
 MAINTAINER madebymode
 
@@ -27,7 +27,8 @@ RUN apk add --no-cache \
     giflib-dev \
     tiff-dev \
     zlib-dev \
-    openssh-client
+    openssh-client \
+    su-exec
 
 # Install Chrome dependencies for Puppeteer (only if INSTALL_CHROME=true)
 RUN if [ "$INSTALL_CHROME" = "true" ]; then \
@@ -52,7 +53,7 @@ RUN npm install -g yarn --force
 
 # Install gulp globally if GULP_VERSION is specified
 RUN if [ -n "$GULP_VERSION" ]; then \
-        npm install -g gulp@^${GULP_VERSION}; \
+        npm install -g gulp-cli gulp@^${GULP_VERSION}; \
     fi
 
 # Give node user sudo access

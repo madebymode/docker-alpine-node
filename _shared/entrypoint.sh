@@ -1,20 +1,20 @@
 #!/bin/sh
 
 # Setup SSH configuration if .ssh-copy directory exists
-if [ -d "/home/docker/.ssh-copy" ]; then
+if [ -d "/home/node/.ssh-copy" ]; then
     echo "Setting up SSH configuration..."
-    cp -R /home/docker/.ssh-copy /home/docker/.ssh
-    chmod 700 /home/docker/.ssh
-    if [ -f "/home/docker/.ssh/id_rsa" ]; then
-        chmod 600 /home/docker/.ssh/id_rsa
+    cp -R /home/node/.ssh-copy /home/node/.ssh
+    chmod 700 /home/node/.ssh
+    if [ -f "/home/node/.ssh/id_rsa" ]; then
+        chmod 600 /home/node/.ssh/id_rsa
     fi
-    if [ -f "/home/docker/.ssh/id_ed25519" ]; then
-        chmod 600 /home/docker/.ssh/id_ed25519
+    if [ -f "/home/node/.ssh/id_ed25519" ]; then
+        chmod 600 /home/node/.ssh/id_ed25519
     fi
-    if [ -f "/home/docker/.ssh/config" ]; then
-        chmod 600 /home/docker/.ssh/config
+    if [ -f "/home/node/.ssh/config" ]; then
+        chmod 600 /home/node/.ssh/config
     fi
-    chown -R node:node /home/docker/.ssh
+    chown -R node:node /home/node/.ssh
     
     # Test SSH connectivity to GitHub
     echo "Testing SSH connectivity to GitHub..."

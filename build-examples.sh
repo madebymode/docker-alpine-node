@@ -22,5 +22,5 @@
 # mxmd/node:v20-full (base + chrome, no gulp)
 
 echo "Images built with SSH support. To use SSH:"
-echo "docker run -v ~/.ssh:/home/docker/.ssh-copy:ro mxmd/node:v20-gulp5"
+echo "docker run -v ~/.ssh:/home/node/.ssh-copy:ro mxmd/node:v20-gulp5"
 
