@@ -28,7 +28,8 @@ RUN apk add --no-cache \
     tiff-dev \
     zlib-dev \
     openssh-client \
-    su-exec
+    su-exec \
+    graphicsmagick
 
 # Install Chrome dependencies for Puppeteer (only if INSTALL_CHROME=true)
 RUN if [ "$INSTALL_CHROME" = "true" ]; then \
