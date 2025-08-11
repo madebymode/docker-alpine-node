@@ -4,45 +4,45 @@
 
 ### Using Docker Node.js Images from Docker Hub
 
-This repository builds and publishes Node.js images built on top of the official Alpine-based Node.js images (`node:${VERSION}-alpine`). These images are optimized for front-end asset building and compilation. These images are designed for building JavaScript, CSS, and other front-end assets, not for running Node.js applications in production. Our images are compatible with both ARM64 and x86_64 host architectures and integrate seamlessly with modern build tools like Webpack, Vite, Rollup, and other front-end bundlers.
+This repository builds and publishes Node.js images built on top of the official Alpine-based Node.js images (`node:v${VERSION}-alpine`). These images are optimized for front-end asset building and compilation. These images are designed for building JavaScript, CSS, and other front-end assets, not for running Node.js applications in production. Our images are compatible with both ARM64 and x86_64 host architectures and integrate seamlessly with modern build tools like Webpack, Vite, Rollup, and other front-end bundlers.
 
 #### Pulling our Node.js Docker Images
 
 To get a specific version of our Node.js image, use:
 
 ```bash
-docker pull mxmd/node:<VERSION>
+docker pull mxmd/node:v<VERSION>
 ```
 
 Where:
-- `<VERSION>` is the desired Node.js major version (e.g., `14`, `16`, `18`, `20`, `22`).
-- For images with Chrome/Puppeteer support, append `-full` to the version (e.g., `18-full`).
+- `<VERSION>` is the desired Node.js major version (e.g., `v14`, `v16`, `v18`, `v20`, `v22`).
+- For images with Chrome/Puppeteer support, append `-full` to the version (e.g., `v18-full`).
 
 For example, to pull the Node.js 18 image:
 
 ```bash
-docker pull mxmd/node:18
+docker pull mxmd/node:v18
 ```
 
 Or to pull the Node.js 18 image with Chrome/Puppeteer support:
 
 ```bash
-docker pull mxmd/node:18-full
+docker pull mxmd/node:v18-full
 ```
 
 Available versions of our images along with their Docker Hub links:
 
 **Base versions:**
-- [14](https://hub.docker.com/r/mxmd/node/tags?page=1&name=14), [16](https://hub.docker.com/r/mxmd/node/tags?page=1&name=16), [18](https://hub.docker.com/r/mxmd/node/tags?page=1&name=18), [20](https://hub.docker.com/r/mxmd/node/tags?page=1&name=20), [22](https://hub.docker.com/r/mxmd/node/tags?page=1&name=22)
+- [14](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14), [16](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16), [18](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18), [20](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20), [22](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22)
 
 **Chrome-enabled versions:**
-- [14-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=14-full), [16-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=16-full), [18-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=18-full), [20-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=20-full), [22-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=22-full)
+- [14-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14-full), [16-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16-full), [18-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18-full), [20-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20-full), [22-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22-full)
 
 **Gulp-specific versions:**
-- [14-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=14-gulp4), [16-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=16-gulp4), [18-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=18-gulp4), [20-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=20-gulp4), [22-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=22-gulp4)
-- [14-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=14-gulp5), [16-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=16-gulp5), [18-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=18-gulp5), [20-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=20-gulp5), [22-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=22-gulp5)
-- [14-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=14-gulp4-full), [16-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=16-gulp4-full), [18-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=18-gulp4-full), [20-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=20-gulp4-full), [22-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=22-gulp4-full)
-- [14-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=14-gulp5-full), [16-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=16-gulp5-full), [18-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=18-gulp5-full), [20-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=20-gulp5-full), [22-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=22-gulp5-full)
+- [14-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14-gulp4), [16-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16-gulp4), [18-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18-gulp4), [20-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20-gulp4), [22-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22-gulp4)
+- [14-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14-gulp5), [16-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16-gulp5), [18-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18-gulp5), [20-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20-gulp5), [22-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22-gulp5)
+- [14-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14-gulp4-full), [16-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16-gulp4-full), [18-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18-gulp4-full), [20-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20-gulp4-full), [22-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22-gulp4-full)
+- [14-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14-gulp5-full), [16-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16-gulp5-full), [18-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18-gulp5-full), [20-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20-gulp5-full), [22-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22-gulp5-full)
 
 #### Image Types
 
@@ -70,7 +70,7 @@ You can integrate our Node.js images into your front-end build workflows. Here a
 ```yaml
 services:
   frontend-build:
-    image: mxmd/node:18
+    image: mxmd/node:v18
     container_name: frontend-builder
     working_dir: /app
     volumes:
@@ -89,7 +89,7 @@ services:
 ```yaml
 services:
   frontend-build-with-testing:
-    image: mxmd/node:18-full
+    image: mxmd/node:v18-full
     container_name: frontend-builder-full
     working_dir: /app
     volumes:
@@ -109,7 +109,7 @@ services:
 ```yaml
 services:
   dev-server:
-    image: mxmd/node:20
+    image: mxmd/node:v20
     container_name: dev-server
     working_dir: /app
     volumes:
@@ -130,7 +130,7 @@ services:
 ```yaml
 services:
   install-deps:
-    image: mxmd/node:18
+    image: mxmd/node:v18
     working_dir: /app
     volumes:
       - .:/app
@@ -141,7 +141,7 @@ services:
     command: yarn install --frozen-lockfile
 
   build-assets:
-    image: mxmd/node:18
+    image: mxmd/node:v18
     working_dir: /app
     volumes:
       - .:/app
@@ -156,7 +156,7 @@ services:
       - install-deps
 
   run-tests:
-    image: mxmd/node:18-full
+    image: mxmd/node:v18-full
     working_dir: /app
     volumes:
       - .:/app
@@ -180,7 +180,7 @@ volumes:
 ```yaml
 services:
   gulp-build:
-    image: mxmd/node:18-gulp4
+    image: mxmd/node:v18-gulp4
     container_name: gulp-builder
     working_dir: /app
     volumes:
@@ -199,7 +199,7 @@ services:
 ```yaml
 services:
   build-with-ssh:
-    image: mxmd/node:20
+    image: mxmd/node:v20
     working_dir: /app
     volumes:
       - .:/app
@@ -218,7 +218,7 @@ services:
 ```yaml
 services:
   frontend:
-    image: mxmd/node:20-full
+    image: mxmd/node:v20-full
     container_name: frontend-dev
     working_dir: /app
     volumes:
