@@ -50,7 +50,7 @@ done
 
 # 6) Determine matrix
 ALL_TYPES=(regular full gulp4 gulp5 gulp4-full gulp5-full)
-ALL_VERSIONS=(14 16 18 20 22)
+ALL_VERSIONS=(14 16 18 20 22 24)
 
 if   $BUILD_ALL; then
   TYPES=("${ALL_TYPES[@]}")

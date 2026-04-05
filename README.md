@@ -1,4 +1,4 @@
-# cross platform alpine-based Node.js 14 - 22 images
+# cross platform alpine-based Node.js 14 - 24 images
 
 ## Front-End Asset Building
 
@@ -15,7 +15,7 @@ docker pull mxmd/node:v<VERSION>
 ```
 
 Where:
-- `<VERSION>` is the desired Node.js major version (e.g., `v14`, `v16`, `v18`, `v20`, `v22`).
+- `<VERSION>` is the desired Node.js major version (e.g., `v14`, `v16`, `v18`, `v20`, `v22`, `v24`).
 - For images with Chrome/Puppeteer support, append `-full` to the version (e.g., `v18-full`).
 
 For example, to pull the Node.js 18 image:
@@ -33,16 +33,16 @@ docker pull mxmd/node:v18-full
 Available versions of our images along with their Docker Hub links:
 
 **Base versions:**
-- [14](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14), [16](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16), [18](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18), [20](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20), [22](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22)
+- [14](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14), [16](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16), [18](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18), [20](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20), [22](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22), [24](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v24)
 
 **Chrome-enabled versions:**
-- [14-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14-full), [16-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16-full), [18-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18-full), [20-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20-full), [22-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22-full)
+- [14-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14-full), [16-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16-full), [18-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18-full), [20-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20-full), [22-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22-full), [24-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v24-full)
 
 **Gulp-specific versions:**
-- [14-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14-gulp4), [16-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16-gulp4), [18-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18-gulp4), [20-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20-gulp4), [22-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22-gulp4)
-- [14-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14-gulp5), [16-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16-gulp5), [18-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18-gulp5), [20-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20-gulp5), [22-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22-gulp5)
-- [14-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14-gulp4-full), [16-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16-gulp4-full), [18-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18-gulp4-full), [20-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20-gulp4-full), [22-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22-gulp4-full)
-- [14-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14-gulp5-full), [16-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16-gulp5-full), [18-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18-gulp5-full), [20-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20-gulp5-full), [22-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22-gulp5-full)
+- [14-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14-gulp4), [16-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16-gulp4), [18-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18-gulp4), [20-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20-gulp4), [22-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22-gulp4), [24-gulp4](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v24-gulp4)
+- [14-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14-gulp5), [16-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16-gulp5), [18-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18-gulp5), [20-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20-gulp5), [22-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22-gulp5), [24-gulp5](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v24-gulp5)
+- [14-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14-gulp4-full), [16-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16-gulp4-full), [18-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18-gulp4-full), [20-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20-gulp4-full), [22-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22-gulp4-full), [24-gulp4-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v24-gulp4-full)
+- [14-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v14-gulp5-full), [16-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v16-gulp5-full), [18-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v18-gulp5-full), [20-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v20-gulp5-full), [22-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v22-gulp5-full), [24-gulp5-full](https://hub.docker.com/r/mxmd/node/tags?page=1&name=v24-gulp5-full)
 
 #### Image Types
 
@@ -330,7 +330,7 @@ Use the provided `buildx-local.sh` script for building multi-architecture images
 
 1. **create-release-and-build**:
    - **Environment**: Runs on the latest Ubuntu.
-   - **Matrix Strategy**: Builds combinations of Node.js versions ('14', '16', '18', '20', '22') with all image variants ('regular', 'full', 'gulp4', 'gulp5', 'gulp4-full', 'gulp5-full').
+   - **Matrix Strategy**: Builds combinations of Node.js versions ('14', '16', '18', '20', '22', '24') with all image variants ('regular', 'full', 'gulp4', 'gulp5', 'gulp4-full', 'gulp5-full').
 
    **Steps**:
    - **Checkout repository**: Pulls the latest code from the repository.
